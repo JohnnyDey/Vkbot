@@ -12,6 +12,7 @@ import com.vkbot.rest.App;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Iterator;
@@ -32,7 +33,8 @@ public class MessageBuilder {
     private MessagesSendQuery query;
     private static final String KEYBOARD_PARAM = "keyboard";
 
-    public MessageBuilder() {
+    @PostConstruct
+    void init(){
         query = apiClient.messages().send(groupActor);
     }
 
