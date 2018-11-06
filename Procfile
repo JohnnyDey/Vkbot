@@ -1,1 +1,1 @@
-web: java -jar target/RestWildFlySwarm-swarm.jar -Dswarm.http.port=$PORT
+web: java -jar target/RestWildFlySwarm-swarm.jar -Dswarm.http.port=9090
