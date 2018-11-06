@@ -1,1 +1,1 @@
-web: java -jar target/RestWildFlySwarm-swarm.jar -Dswarm.http.port=9090
+web: java -agentlib:jdwp=transport=dt_socket,server=y,address=9090,suspend=n -jar target/RestWildFlySwarm-swarm.jar
