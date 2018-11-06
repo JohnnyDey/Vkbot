@@ -26,6 +26,9 @@ public class MessageHandler extends CallbackApi {
     @Inject @Named("actor")
     private GroupActor groupActor;
 
+    @Inject
+    private MessageBuilder builder;
+
     private String answerToVkServer;
 
     private static final String OK = "ok";
@@ -35,7 +38,7 @@ public class MessageHandler extends CallbackApi {
         if(MessageUtils.isTextMessage(message)){
             String username = getUsername(String.valueOf(message.getUserId()));
             Messages messages = bot.simpleTextMessageHandle(username, message.getBody());
-            MessageBuilder.getInstance().message(messages).send();
+            builder.message(messages).send();
         }
         answerToVkServer = OK;
     }

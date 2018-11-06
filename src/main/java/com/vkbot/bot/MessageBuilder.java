@@ -32,12 +32,8 @@ public class MessageBuilder {
     private MessagesSendQuery query;
     private static final String KEYBOARD_PARAM = "keyboard";
 
-    private MessageBuilder() {
-        MessagesSendQuery messages = apiClient.messages().send(groupActor);
-    }
-
-    static MessageBuilder getInstance(){
-        return new MessageBuilder();
+    public MessageBuilder() {
+        query = apiClient.messages().send(groupActor);
     }
 
     public MessageBuilder to(Integer id){
