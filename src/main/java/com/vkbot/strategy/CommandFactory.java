@@ -38,21 +38,15 @@ public class CommandFactory {
     }
 
     private Command getNewCommand(){
-//        if(message.startsWith("/timers")){
-//            return commandInstance.select(TimersCommand.class).get();
-//        } else if (message.equals(SPAM)){
-//            return commandInstance.select(NotificationCommand.class).get();
-//        } else if(message.equals(REMIND)){
-//            return commandInstance.select(RemindCommand.class).get();
-//        } else
-        if(message.equals(INFO)) {
-            return commandInstance.select(InfoCommand.class).get();
-//        } else if(message.startsWith("/сказатьВслух") && user.getAppId().equals(40092345L)){
-//            return commandInstance.select(NotifyAllCommand.class).get();
-//        } else if(message.equals(MY_REMINDS)){
-//            return commandInstance.select(MyReminds.class).get();
-        } else {
-            return commandInstance.select(HelpCommand.class).get();
+        switch (message) {
+            case REMIND:
+                return commandInstance.select(RemindCommand.class).get();
+            case INFO:
+                return commandInstance.select(InfoCommand.class).get();
+            case MY_REMINDS:
+                return commandInstance.select(MyReminds.class).get();
+            default:
+                return commandInstance.select(HelpCommand.class).get();
         }
     }
 
