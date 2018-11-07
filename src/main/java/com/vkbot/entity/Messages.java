@@ -1,6 +1,8 @@
 package com.vkbot.entity;
 
 import com.vkbot.keyboard.Keyboard;
+import com.vkbot.keyboard.KeyboardMatcher;
+import com.vkbot.utils.KeyboardMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 public class Messages {
 
     private List<Object> phrases = new ArrayList<>();
-    private Keyboard keyboard = null;
+    private KeyboardMap keyboard = null;
 
     public void clear(){
         phrases.clear();
@@ -27,10 +29,10 @@ public class Messages {
     }
 
     public Keyboard getKeyboard() {
-        return keyboard;
+        return KeyboardMatcher.match(keyboard);
     }
 
-    public void setKeyboard(Keyboard keyboard) {
+    public void setKeyboard(KeyboardMap keyboard) {
         this.keyboard = keyboard;
     }
 }

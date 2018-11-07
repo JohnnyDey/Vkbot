@@ -38,7 +38,7 @@ public class MessageHandler extends CallbackApi {
         if(MessageUtils.isTextMessage(message)){
             String username = getUsername(String.valueOf(message.getUserId()));
             Messages messages = bot.simpleTextMessageHandle(username, message.getBody());
-            builder.message(messages).send();
+            builder.message(messages).to(message.getUserId()).send();
         }
         answerToVkServer = OK;
     }

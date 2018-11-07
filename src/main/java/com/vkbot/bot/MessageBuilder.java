@@ -40,18 +40,13 @@ public class MessageBuilder {
         query = apiClient.messages().send(groupActor);
     }
 
-    public MessageBuilder to(Integer id){
+    MessageBuilder to(Integer id){
         query.userId(id);
         return this;
     }
 
     public MessageBuilder message(Messages message){
         this.messages = message;
-        return this;
-    }
-
-    public MessageBuilder keyboard(Keyboard keyboard){
-        query.unsafeParam("keyboard", new Gson().toJson(keyboard));
         return this;
     }
 

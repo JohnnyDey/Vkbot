@@ -26,7 +26,7 @@ public class PhraseUtil implements Serializable {
 
     public Messages getTimerTime() {
         Messages messages = new Messages();
-        messages.addPhrase(KeyboardMap.SET_TIME);
+        messages.setKeyboard(KeyboardMap.SET_TIME);
         messages.addPhrase(properties.getProperty("timer.get-time"));
         return messages;
     }
@@ -34,7 +34,7 @@ public class PhraseUtil implements Serializable {
     public Messages getTimerMsg() {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.CANCEL);
+        messages.setKeyboard(KeyboardMap.CANCEL);
         messages.addPhrase(properties.getProperty("timer.get-msg"));
         return messages;
     }
@@ -42,7 +42,7 @@ public class PhraseUtil implements Serializable {
     public Messages getSuccessTimedPhrase() {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(properties.getProperty("timer.ok"));
         messages.addPhrase(StickerCollector.thumbUp);
         return messages;
@@ -56,7 +56,7 @@ public class PhraseUtil implements Serializable {
 //            sb.append(String.format(properties.getProperty("info.name"), user.getUserName())).append("\n");
 //        }
 //        messages.addPhrase(sb.toString());
-//        messages.addPhrase(KeyboardMap.LIST);
+//        messages.setKeyboard(KeyboardMap.LIST);
 //        messages.addPhrase(StickerCollector.glad);
 //        return messages;
 //    }
@@ -64,7 +64,7 @@ public class PhraseUtil implements Serializable {
     public Messages choosePerson() {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.PERSONS);
+        messages.setKeyboard(KeyboardMap.PERSONS);
         messages.addPhrase(properties.getProperty("info.choose"));
         return messages;
     }
@@ -72,7 +72,7 @@ public class PhraseUtil implements Serializable {
     public Messages personInfo(String name, int i) {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.NEXT);
+        messages.setKeyboard(KeyboardMap.NEXT);
         messages.addPhrase(properties.getProperty("info." + name + "." + i));
         return messages;
     }
@@ -81,7 +81,7 @@ public class PhraseUtil implements Serializable {
         Messages messages = new Messages();
 
         messages.addPhrase(properties.getProperty("help.list"));
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.relax);
         return messages;
     }
@@ -90,7 +90,7 @@ public class PhraseUtil implements Serializable {
         Messages messages = new Messages();
 
         messages.addPhrase(properties.getProperty("notify.no"));
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.sad);
         return messages;
     }
@@ -99,7 +99,7 @@ public class PhraseUtil implements Serializable {
         Messages messages = new Messages();
 
         messages.addPhrase(properties.getProperty("notify.yes"));
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.thumbUp);
         return messages;
     }
@@ -111,7 +111,7 @@ public class PhraseUtil implements Serializable {
     public Messages getNotifyHelp(String onOrOffString) {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.YES_OR_NO);
+        messages.setKeyboard(KeyboardMap.YES_OR_NO);
         messages.addPhrase(String.format(properties.getProperty("notify.help"), onOrOffString));
         return messages;
     }
@@ -119,7 +119,7 @@ public class PhraseUtil implements Serializable {
     public Messages askToStartNotify() {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.YES_OR_NO);
+        messages.setKeyboard(KeyboardMap.YES_OR_NO);
         messages.addPhrase(properties.getProperty("notify.ask.start"));
         return messages;
     }
@@ -127,7 +127,7 @@ public class PhraseUtil implements Serializable {
     public Messages askToStopNotify() {
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.YES_OR_NO);
+        messages.setKeyboard(KeyboardMap.YES_OR_NO);
         messages.addPhrase(properties.getProperty("notify.ask.stop"));
         return messages;
     }
@@ -136,7 +136,7 @@ public class PhraseUtil implements Serializable {
         Messages messages = new Messages();
 
         messages.addPhrase(properties.getProperty("notify.no-changes"));
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.pleased);
         return messages;
     }
@@ -145,7 +145,7 @@ public class PhraseUtil implements Serializable {
         Messages messages = new Messages();
 
         messages.addPhrase(properties.getProperty("common.ok"));
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.thumbUp);
         return messages;
     }
@@ -153,7 +153,7 @@ public class PhraseUtil implements Serializable {
     public Messages toBigInteger(){
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.CANCEL);
+        messages.setKeyboard(KeyboardMap.CANCEL);
         messages.addPhrase(properties.getProperty("timers.out-of-bounds"));
 
         return messages;
@@ -162,7 +162,7 @@ public class PhraseUtil implements Serializable {
     public Messages noTimers(){
         Messages messages = new Messages();
 
-        messages.addPhrase(KeyboardMap.LIST);
+        messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(properties.getProperty("timers.list.empty"));
         return messages;
     }
@@ -170,7 +170,7 @@ public class PhraseUtil implements Serializable {
 //    public Messages timersList(List<Timer> timers){
 //        Messages messages = new Messages();
 
-//        messages.addPhrase(KeyboardMap.CANCEL);
+//        messages.setKeyboard(KeyboardMap.CANCEL);
 //        StringBuilder sb = new StringBuilder(properties.getProperty("timers.list"));
 //        for(int i = 1; i <= timers.size(); i++){
 //            sb.append(formatDate(i, timers.get(i - 1)));
