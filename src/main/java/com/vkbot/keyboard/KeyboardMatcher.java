@@ -72,9 +72,8 @@ public class KeyboardMatcher {
     private static Keyboard createListMap() {
         return generalKeyboard()
                 .addToLine(0, Button.Color.PRIMARY, CommandFactory.INFO)
-                .addToLine(0, Button.Color.PRIMARY, CommandFactory.SPAM)
-                .addToLine(1, Button.Color.PRIMARY, CommandFactory.REMIND)
-                .addToLine(1, Button.Color.PRIMARY, CommandFactory.MY_REMINDS);
+                .addToLine(1, Button.Color.DEFAULT, CommandFactory.REMIND)
+                .addToLine(1, Button.Color.DEFAULT, CommandFactory.MY_REMINDS);
     }
 
     private static Keyboard generalKeyboard(){

@@ -3,6 +3,7 @@ package com.vkbot.utils;
 
 import com.vkbot.entity.Messages;
 
+import javax.jms.Message;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,7 +34,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages getTimerMsg() {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.CANCEL);
         messages.addPhrase(properties.getProperty("timer.get-msg"));
         return messages;
@@ -41,7 +41,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages getSuccessTimedPhrase() {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(properties.getProperty("timer.ok"));
         messages.addPhrase(StickerCollector.thumbUp);
@@ -50,7 +49,6 @@ public class PhraseUtil implements Serializable {
 //
 //    public Messages getInfoPhrase(User user) {
 //        Messages messages = new Messages();
-
 //        StringBuilder sb = new StringBuilder();
 //        if(user.getUserName() != null) {
 //            sb.append(String.format(properties.getProperty("info.name"), user.getUserName())).append("\n");
@@ -63,7 +61,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages choosePerson() {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.PERSONS);
         messages.addPhrase(properties.getProperty("info.choose"));
         return messages;
@@ -71,7 +68,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages personInfo(String name, int i) {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.NEXT);
         messages.addPhrase(properties.getProperty("info." + name + "." + i));
         return messages;
@@ -79,16 +75,13 @@ public class PhraseUtil implements Serializable {
 
     public Messages getHelp() {
         Messages messages = new Messages();
-
         messages.addPhrase(properties.getProperty("help.list"));
         messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.relax);
         return messages;
     }
 
     public Messages notifyNo(){
         Messages messages = new Messages();
-
         messages.addPhrase(properties.getProperty("notify.no"));
         messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.sad);
@@ -97,7 +90,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages notifyYes(){
         Messages messages = new Messages();
-
         messages.addPhrase(properties.getProperty("notify.yes"));
         messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.thumbUp);
@@ -110,7 +102,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages getNotifyHelp(String onOrOffString) {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.YES_OR_NO);
         messages.addPhrase(String.format(properties.getProperty("notify.help"), onOrOffString));
         return messages;
@@ -118,7 +109,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages askToStartNotify() {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.YES_OR_NO);
         messages.addPhrase(properties.getProperty("notify.ask.start"));
         return messages;
@@ -126,7 +116,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages askToStopNotify() {
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.YES_OR_NO);
         messages.addPhrase(properties.getProperty("notify.ask.stop"));
         return messages;
@@ -134,7 +123,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages notifyNoChanges() {
         Messages messages = new Messages();
-
         messages.addPhrase(properties.getProperty("notify.no-changes"));
         messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.pleased);
@@ -143,16 +131,22 @@ public class PhraseUtil implements Serializable {
 
     public Messages ok(){
         Messages messages = new Messages();
-
         messages.addPhrase(properties.getProperty("common.ok"));
         messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(StickerCollector.thumbUp);
         return messages;
     }
 
+    public Messages unavailable(){
+        Messages messages = new Messages();
+        messages.addPhrase(properties.getProperty("common.unavailable"));
+        messages.setKeyboard(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.sad);
+        return messages;
+    }
+
     public Messages toBigInteger(){
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.CANCEL);
         messages.addPhrase(properties.getProperty("timers.out-of-bounds"));
 
@@ -161,7 +155,6 @@ public class PhraseUtil implements Serializable {
 
     public Messages noTimers(){
         Messages messages = new Messages();
-
         messages.setKeyboard(KeyboardMap.LIST);
         messages.addPhrase(properties.getProperty("timers.list.empty"));
         return messages;
@@ -169,7 +162,6 @@ public class PhraseUtil implements Serializable {
 
 //    public Messages timersList(List<Timer> timers){
 //        Messages messages = new Messages();
-
 //        messages.setKeyboard(KeyboardMap.CANCEL);
 //        StringBuilder sb = new StringBuilder(properties.getProperty("timers.list"));
 //        for(int i = 1; i <= timers.size(); i++){

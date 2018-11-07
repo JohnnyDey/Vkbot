@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandFactory {
 
     public static final String INFO = "Информация";
-    public static final String SPAM = "Спам";
     public static final String REMIND = "Напомнить";
     public static final String MY_REMINDS = "Мои напоминалки";
     public static final String CANCEL = "Хватит";
