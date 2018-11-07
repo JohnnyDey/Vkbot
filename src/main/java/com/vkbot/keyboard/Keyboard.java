@@ -38,8 +38,12 @@ public class Keyboard {
         return oneTime;
     }
 
-    void setOneTime(Boolean oneTime) {
-        this.oneTime = oneTime;
+    void setOneTime() {
+        this.oneTime = true;
+    }
+
+    void setPrimaryTimes() {
+        this.oneTime = false;
     }
 
     public List<List<Button>> getButtons() {

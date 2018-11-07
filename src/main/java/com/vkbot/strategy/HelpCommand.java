@@ -6,7 +6,7 @@ import com.vkbot.entity.Messages;
 public class HelpCommand extends AbstractCommand {
     @Override
     public Messages execute(String message, String user) {
-        messages.addPhrases(phraseUtil.getHelp());
+        messages = phraseUtil.getHelp();
         return finishExecution();
     }
 

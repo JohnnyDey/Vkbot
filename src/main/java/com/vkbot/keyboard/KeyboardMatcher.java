@@ -79,7 +79,7 @@ public class KeyboardMatcher {
 
     private static Keyboard generalKeyboard(){
         Keyboard keyboard = new Keyboard(false);
-        keyboard.setOneTime(true);
+        keyboard.setOneTime();
         return keyboard;
     }
 }

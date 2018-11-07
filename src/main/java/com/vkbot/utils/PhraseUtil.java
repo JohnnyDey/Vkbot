@@ -1,6 +1,8 @@
 package com.vkbot.utils;
 
 
+import com.vkbot.entity.Messages;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,143 +24,159 @@ public class PhraseUtil implements Serializable {
         }
     }
 
-    public List<Object> getTimerTime() {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.SET_TIME);
-        list.add(properties.getProperty("timer.get-time"));
-        return list;
+    public Messages getTimerTime() {
+        Messages messages = new Messages();
+        messages.addPhrase(KeyboardMap.SET_TIME);
+        messages.addPhrase(properties.getProperty("timer.get-time"));
+        return messages;
     }
 
-    public List<Object> getTimerMsg() {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.CANCEL);
-        list.add(properties.getProperty("timer.get-msg"));
-        return list;
+    public Messages getTimerMsg() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.CANCEL);
+        messages.addPhrase(properties.getProperty("timer.get-msg"));
+        return messages;
     }
 
-    public List<Object> getSuccessTimedPhrase() {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.LIST);
-        list.add(properties.getProperty("timer.ok"));
-        list.add(StickerCollector.thumbUp);
-        return list;
+    public Messages getSuccessTimedPhrase() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(properties.getProperty("timer.ok"));
+        messages.addPhrase(StickerCollector.thumbUp);
+        return messages;
     }
 //
-//    public List<Object> getInfoPhrase(User user) {
-//        List<Object> list = new ArrayList<>();
+//    public Messages getInfoPhrase(User user) {
+//        Messages messages = new Messages();
+
 //        StringBuilder sb = new StringBuilder();
 //        if(user.getUserName() != null) {
 //            sb.append(String.format(properties.getProperty("info.name"), user.getUserName())).append("\n");
 //        }
-//        list.add(sb.toString());
-//        list.add(KeyboardMap.LIST);
-//        list.add(StickerCollector.glad);
-//        return list;
+//        messages.addPhrase(sb.toString());
+//        messages.addPhrase(KeyboardMap.LIST);
+//        messages.addPhrase(StickerCollector.glad);
+//        return messages;
 //    }
 
-    public List<Object> choosePerson() {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.PERSONS);
-        list.add(properties.getProperty("info.choose"));
-        return list;
+    public Messages choosePerson() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.PERSONS);
+        messages.addPhrase(properties.getProperty("info.choose"));
+        return messages;
     }
 
-    public List<Object> personInfo(String name, int i) {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.NEXT);
-        list.add(properties.getProperty("info." + name + "." + i));
-        return list;
+    public Messages personInfo(String name, int i) {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.NEXT);
+        messages.addPhrase(properties.getProperty("info." + name + "." + i));
+        return messages;
     }
 
-    public List<Object> getHelp() {
-        List<Object> list = new ArrayList<>();
-        list.add(properties.getProperty("help.list"));
-        list.add(KeyboardMap.LIST);
-        list.add(StickerCollector.relax);
-        return list;
+    public Messages getHelp() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(properties.getProperty("help.list"));
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.relax);
+        return messages;
     }
 
-    public List<Object> notifyNo(){
-        List<Object> list = new ArrayList<>();
-        list.add(properties.getProperty("notify.no"));
-        list.add(KeyboardMap.LIST);
-        list.add(StickerCollector.sad);
-        return list;
+    public Messages notifyNo(){
+        Messages messages = new Messages();
+
+        messages.addPhrase(properties.getProperty("notify.no"));
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.sad);
+        return messages;
     }
 
-    public List<Object> notifyYes(){
-        List<Object> list = new ArrayList<>();
-        list.add(properties.getProperty("notify.yes"));
-        list.add(KeyboardMap.LIST);
-        list.add(StickerCollector.thumbUp);
-        return list;
+    public Messages notifyYes(){
+        Messages messages = new Messages();
+
+        messages.addPhrase(properties.getProperty("notify.yes"));
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.thumbUp);
+        return messages;
     }
 
     public String howToNotify() {
         return properties.getProperty("notify.disclaimer");
     }
 
-    public List<Object> getNotifyHelp(String onOrOffString) {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.YES_OR_NO);
-        list.add(String.format(properties.getProperty("notify.help"), onOrOffString));
-        return list;
+    public Messages getNotifyHelp(String onOrOffString) {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.YES_OR_NO);
+        messages.addPhrase(String.format(properties.getProperty("notify.help"), onOrOffString));
+        return messages;
     }
 
-    public List<Object> askToStartNotify() {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.YES_OR_NO);
-        list.add(properties.getProperty("notify.ask.start"));
-        return list;
+    public Messages askToStartNotify() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.YES_OR_NO);
+        messages.addPhrase(properties.getProperty("notify.ask.start"));
+        return messages;
     }
 
-    public List<Object> askToStopNotify() {
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.YES_OR_NO);
-        list.add(properties.getProperty("notify.ask.stop"));
-        return list;
+    public Messages askToStopNotify() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.YES_OR_NO);
+        messages.addPhrase(properties.getProperty("notify.ask.stop"));
+        return messages;
     }
 
-    public List<Object> notifyNoChanges() {
-        List<Object> list = new ArrayList<>();
-        list.add(properties.getProperty("notify.no-changes"));
-        list.add(KeyboardMap.LIST);
-        list.add(StickerCollector.pleased);
-        return list;
+    public Messages notifyNoChanges() {
+        Messages messages = new Messages();
+
+        messages.addPhrase(properties.getProperty("notify.no-changes"));
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.pleased);
+        return messages;
     }
 
-    public List<Object> ok(){
-        List<Object> list = new ArrayList<>();
-        list.add(properties.getProperty("common.ok"));
-        list.add(KeyboardMap.LIST);
-        list.add(StickerCollector.thumbUp);
-        return list;
+    public Messages ok(){
+        Messages messages = new Messages();
+
+        messages.addPhrase(properties.getProperty("common.ok"));
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.thumbUp);
+        return messages;
     }
 
-    public List<Object> toBigInteger(){
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.CANCEL);
-        list.add(properties.getProperty("timers.out-of-bounds"));
+    public Messages toBigInteger(){
+        Messages messages = new Messages();
 
-        return list;
+        messages.addPhrase(KeyboardMap.CANCEL);
+        messages.addPhrase(properties.getProperty("timers.out-of-bounds"));
+
+        return messages;
     }
 
-    public List<Object> noTimers(){
-        List<Object> list = new ArrayList<>();
-        list.add(KeyboardMap.LIST);
-        list.add(properties.getProperty("timers.list.empty"));
-        return list;
+    public Messages noTimers(){
+        Messages messages = new Messages();
+
+        messages.addPhrase(KeyboardMap.LIST);
+        messages.addPhrase(properties.getProperty("timers.list.empty"));
+        return messages;
     }
 
-//    public List<Object> timersList(List<Timer> timers){
-//        List<Object> list = new ArrayList<>();
-//        list.add(KeyboardMap.CANCEL);
+//    public Messages timersList(List<Timer> timers){
+//        Messages messages = new Messages();
+
+//        messages.addPhrase(KeyboardMap.CANCEL);
 //        StringBuilder sb = new StringBuilder(properties.getProperty("timers.list"));
 //        for(int i = 1; i <= timers.size(); i++){
 //            sb.append(formatDate(i, timers.get(i - 1)));
 //        }
-//        list.add(sb.toString());
-//        return list;
+//        messages.addPhrase(sb.toString());
+//        return messages;
 //    }
 //
 //    private String formatDate(int index, Timer t){

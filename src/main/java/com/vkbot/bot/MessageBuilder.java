@@ -13,10 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Iterator;
 
+@RequestScoped
 public class MessageBuilder {
 
     private Logger logger = LoggerFactory.getLogger(App.class);

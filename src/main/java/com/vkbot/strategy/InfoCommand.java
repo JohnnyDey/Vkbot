@@ -10,7 +10,7 @@ public class InfoCommand extends AbstractCommand{
 
     @Override
     public Messages execute(String message, String user) {
-        messages.addPhrases(phraseUtil.choosePerson());
+        messages = phraseUtil.choosePerson();
         return completeExecution();
     }
 
@@ -38,7 +38,7 @@ public class InfoCommand extends AbstractCommand{
         } else if(message.equals(Person.OSCAR.getName())){
             getInfo(Person.OSCAR);
         } else {
-            messages.addPhrases(phraseUtil.choosePerson());
+            messages = phraseUtil.choosePerson();
             iterator = 0;
             person = null;
         }
@@ -47,9 +47,9 @@ public class InfoCommand extends AbstractCommand{
     private Messages getInfo(Person person){
         this.person = person;
         if (person.hasNext(iterator)){
-            messages.addPhrases(phraseUtil.personInfo(person.name(), ++iterator));
+            messages = phraseUtil.personInfo(person.name(), ++iterator);
         } else {
-            messages.addPhrases(phraseUtil.choosePerson());
+            messages = phraseUtil.choosePerson();
             iterator = 0;
             this.person = null;
         }
