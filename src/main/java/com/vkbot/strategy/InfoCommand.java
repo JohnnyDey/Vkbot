@@ -1,6 +1,7 @@
 package com.vkbot.strategy;
 
 
+import com.vk.api.sdk.objects.messages.Message;
 import com.vkbot.entity.MessagesToSend;
 
 public class InfoCommand extends AbstractCommand{
@@ -16,6 +17,7 @@ public class InfoCommand extends AbstractCommand{
 
     @Override
     public MessagesToSend nextPhase(String user) {
+        Message message = messageInstance.get();
         if(person == null || !person.hasNext(iterator)){
             choosePerson(message.getBody());
             return completeExecution();

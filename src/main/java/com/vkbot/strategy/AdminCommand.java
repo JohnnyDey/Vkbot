@@ -1,5 +1,6 @@
 package com.vkbot.strategy;
 
+import com.vk.api.sdk.objects.messages.Message;
 import com.vkbot.entity.MessagesToSend;
 import com.vkbot.services.TimersService;
 
@@ -15,6 +16,7 @@ public class AdminCommand extends AbstractCommand{
 
     @Override
     public MessagesToSend execute(String user) {
+        Message message = messageInstance.get();
         if(message.getBody().endsWith(TIMER_LIST)){
             timersService.getTimers().forEach(timer ->
                     messagesToSend = new MessagesToSend(timer.getInfo().toString() + " " + timer.getNextTimeout())

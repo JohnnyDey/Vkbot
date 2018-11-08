@@ -4,6 +4,7 @@ import com.vk.api.sdk.objects.messages.Message;
 import com.vkbot.entity.MessagesToSend;
 import com.vkbot.utils.PhraseUtil;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 public abstract class AbstractCommand implements Command {
@@ -12,7 +13,7 @@ public abstract class AbstractCommand implements Command {
     PhraseUtil phraseUtil = new PhraseUtil();
 
     @Inject
-    Message message;
+    Instance<Message> messageInstance;
 
     @Override
     public abstract MessagesToSend execute(String user);

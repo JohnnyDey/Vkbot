@@ -1,5 +1,6 @@
 package com.vkbot.strategy;
 
+import com.vk.api.sdk.objects.messages.Message;
 import com.vkbot.entity.MessagesToSend;
 import com.vkbot.services.TimersService;
 
@@ -20,6 +21,7 @@ public class MyRemindsCommand extends AbstractCommand {
     }
 
     private MessagesToSend refreshTimers(){
+        Message message = messageInstance.get();
         timers = timersService.findTimers(message.getUserId());
         if (timers.size() == 0){
             messagesToSend = phraseUtil.noTimers();
@@ -32,6 +34,7 @@ public class MyRemindsCommand extends AbstractCommand {
 
     @Override
     public MessagesToSend nextPhase(String user) {
+        Message message = messageInstance.get();
         int index = Integer.parseInt(message.getBody()) - 1;
         if(timers.size() > index && index >= 0){
             timers.get(index).cancel();
