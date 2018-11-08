@@ -1,6 +1,8 @@
 package com.vkbot.services;
 
 import com.vkbot.entity.TimerId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class TimersService implements Serializable {
 
+    private Logger logger = LoggerFactory.getLogger(TimersService.class);
+
     @Resource
     private TimerService timerService;
 
@@ -29,6 +33,7 @@ public class TimersService implements Serializable {
     }
 
     public void startTimer(Date date, Integer to, String msg) {
+        logger.info("Timer for " + to + " at "  + date + " is setting: " + msg);
         timerService.createSingleActionTimer(date, new TimerConfig(new TimerId(to, msg), true));
     }
 
