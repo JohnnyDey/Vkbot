@@ -1,6 +1,6 @@
 package com.vkbot.strategy;
 
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -11,13 +11,13 @@ public class RemindCommand extends AbstractCommand {
     private ZonedDateTime zonedDateTime;
 
     @Override
-    public Messages execute(String message, String user) {
-        messages = phraseUtil.unavailable();
+    public MessagesToSend execute(String user) {
+        messagesToSend = phraseUtil.unavailable();
         return finishExecution();
     }
 
     @Override
-    public Messages nextPhase(String message, String user) {
+    public MessagesToSend nextPhase(String user) {
         return completeExecution();
     }
 

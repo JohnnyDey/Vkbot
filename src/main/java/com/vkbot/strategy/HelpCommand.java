@@ -1,17 +1,17 @@
 package com.vkbot.strategy;
 
 
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 
 public class HelpCommand extends AbstractCommand {
     @Override
-    public Messages execute(String message, String user) {
-        messages = phraseUtil.getHelp();
+    public MessagesToSend execute(String user) {
+        messagesToSend = phraseUtil.getHelp();
         return finishExecution();
     }
 
     @Override
-    public Messages nextPhase(String message, String user) {
+    public MessagesToSend nextPhase(String user) {
         return null;
     }
 }

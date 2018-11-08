@@ -1,15 +1,21 @@
 package com.vkbot.strategy;
 
-import com.vkbot.entity.Messages;
+import com.vk.api.sdk.objects.messages.Message;
+import com.vkbot.entity.MessagesToSend;
 import com.vkbot.utils.PhraseUtil;
+
+import javax.inject.Inject;
 
 public abstract class AbstractCommand implements Command {
     private Status status = Status.NEW;
-    Messages messages = new Messages();
+    MessagesToSend messagesToSend = new MessagesToSend();
     PhraseUtil phraseUtil = new PhraseUtil();
 
+    @Inject
+    Message message;
+
     @Override
-    public abstract Messages execute(String message, String user);
+    public abstract MessagesToSend execute(String user);
 
     @Override
     public void interrupt() {
@@ -22,21 +28,21 @@ public abstract class AbstractCommand implements Command {
     }
 
     @Override
-    public abstract Messages nextPhase(String message, String user);
+    public abstract MessagesToSend nextPhase(String user);
 
     @Override
     public void clearPhases() {
-        messages.clear();
+        messagesToSend.clear();
     }
 
-    Messages completeExecution(){
+    MessagesToSend completeExecution(){
         status = Status.MANAGED;
-        return messages;
+        return messagesToSend;
     }
 
-    Messages finishExecution(){
+    MessagesToSend finishExecution(){
         status = Status.STOPPED;
-        return messages;
+        return messagesToSend;
     }
 
 }

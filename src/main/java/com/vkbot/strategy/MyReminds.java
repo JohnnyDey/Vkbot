@@ -1,6 +1,6 @@
 package com.vkbot.strategy;
 
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 import com.vkbot.services.TimersService;
 
 import javax.ejb.Timer;
@@ -15,29 +15,29 @@ public class MyReminds extends AbstractCommand {
     private TimersService timersService;
 
     @Override
-    public Messages execute(String message, String user) {
+    public MessagesToSend execute(String user) {
         return refreshTimers(Long.valueOf(user));
     }
 
-    private Messages refreshTimers(Long id){
+    private MessagesToSend refreshTimers(Long id){
         timers = timersService.findTimers(id);
         if (timers.size() == 0){
-            messages = phraseUtil.noTimers();
+            messagesToSend = phraseUtil.noTimers();
             return finishExecution();
         }else {
-            messages =  phraseUtil.timersList(timers);
+            messagesToSend =  phraseUtil.timersList(timers);
             return completeExecution();
         }
     }
 
     @Override
-    public Messages nextPhase(String message, String user) {
-        int index = Integer.parseInt(message) - 1;
+    public MessagesToSend nextPhase(String user) {
+        int index = Integer.parseInt(message.getBody()) - 1;
         if(timers.size() > index && index >= 0){
             timers.get(index).cancel();
-            return refreshTimers(Long.valueOf(user)); //ID а не NAME!
+            return refreshTimers(Long.valueOf(message.getUserId()));
         } else {
-            messages = phraseUtil.toBigInteger();
+            messagesToSend = phraseUtil.toBigInteger();
         }
         return completeExecution();
     }

@@ -1,17 +1,17 @@
 package com.vkbot.strategy;
 
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 
 
 public interface Command {
 
-    Messages execute(String message, String user);
+    MessagesToSend execute(String user);
 
     void interrupt();
 
     Status getStatus();
 
-    Messages nextPhase(String message, String user);
+    MessagesToSend nextPhase(String user);
 
     void clearPhases();
 

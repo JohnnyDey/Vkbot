@@ -6,8 +6,7 @@ import com.vk.api.sdk.client.actors.GroupActor;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.queries.messages.MessagesSendQuery;
-import com.vkbot.entity.Messages;
-import com.vkbot.keyboard.Keyboard;
+import com.vkbot.entity.MessagesToSend;
 import com.vkbot.rest.App;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ public class MessageBuilder {
     private GroupActor groupActor;
 
     private Integer id;
-    private Messages messages;
+    private MessagesToSend messagesToSend;
     private MessagesSendQuery query;
     private static final String KEYBOARD_PARAM = "keyboard";
 
@@ -45,14 +44,14 @@ public class MessageBuilder {
         return this;
     }
 
-    public MessageBuilder message(Messages message){
-        this.messages = message;
+    public MessageBuilder message(MessagesToSend message){
+        this.messagesToSend = message;
         return this;
     }
 
     void send(){
-        if (messages == null) return;
-        Iterator<Object> iterator = messages.getPhrases().iterator();
+        if (messagesToSend == null) return;
+        Iterator<Object> iterator = messagesToSend.getPhrases().iterator();
         while (iterator.hasNext()){
             Object msg = iterator.next();
 
@@ -62,7 +61,7 @@ public class MessageBuilder {
                 query.stickerId((Integer) msg);
             } else return;
 
-            if(!iterator.hasNext() && messages.getKeyboard() != null){
+            if(!iterator.hasNext() && messagesToSend.getKeyboard() != null){
                 query.unsafeParam(KEYBOARD_PARAM, getKeyboardJson());
             }
            sendMessage();
@@ -70,7 +69,7 @@ public class MessageBuilder {
     }
 
     private String getKeyboardJson(){
-        return new Gson().toJson(messages.getKeyboard());
+        return new Gson().toJson(messagesToSend.getKeyboard());
     }
 
     private void sendMessage(){

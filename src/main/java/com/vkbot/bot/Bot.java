@@ -1,6 +1,7 @@
 package com.vkbot.bot;
 
-import com.vkbot.entity.Messages;
+import com.vk.api.sdk.objects.messages.Message;
+import com.vkbot.entity.MessagesToSend;
 import com.vkbot.strategy.AbstractCommand;
 import com.vkbot.strategy.Command;
 import com.vkbot.strategy.CommandFactory;
@@ -24,20 +25,24 @@ public class Bot {
     @Named(value = "execCommand")
     private Instance<Command> commandInstance;
 
-    public Messages simpleTextMessageHandle(String username, String message) {
-        logger.debug("User " + username + "send message: " + message);
-        setContextForCommand(message, username);
+    @Inject
+    private Instance<Message> messageInstance;
+
+    MessagesToSend simpleTextMessageHandle(String username) {
+        Message message = messageInstance.get();
+        logger.debug("User " + username + "send messageInstance: " + message);
+        setContextForCommand(message.getBody(), username);
 
         Command command = commandInstance.get();
         if(command.getStatus().equals(AbstractCommand.Status.NEW)){
-            return command.execute(message.trim(), username);
+            return command.execute(username);
         }else {
-            if(message.startsWith(CommandFactory.CANCEL)){
+            if(message.getBody().startsWith(CommandFactory.CANCEL)){
                 command.interrupt();
-                return commandInstance.get().execute(message, username);
+                return commandInstance.get().execute(username);
             } else {
                 command.clearPhases();
-                return command.nextPhase(message.trim(), username);
+                return command.nextPhase(username);
             }
         }
     }

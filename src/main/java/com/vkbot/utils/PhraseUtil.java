@@ -1,16 +1,17 @@
 package com.vkbot.utils;
 
 
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 import com.vkbot.entity.TimerId;
+import com.vkbot.rest.App;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Timer;
-import javax.jms.Message;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -18,156 +19,158 @@ import java.util.Properties;
 public class PhraseUtil implements Serializable {
 
     private final Properties properties = new Properties();
+    private Logger logger = LoggerFactory.getLogger(PhraseUtil.class);
+
 
     public PhraseUtil(){
         try {
             InputStream resourceAsStream = PhraseUtil.class.getClassLoader().getResourceAsStream("core/phrases.properties");
             properties.load(new InputStreamReader(resourceAsStream));
         }catch (IOException e){
-
+            logger.error("Cannot read phrases!");
         }
     }
 
-    public Messages getTimerTime() {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.SET_TIME);
-        messages.addPhrase(properties.getProperty("timer.get-time"));
-        return messages;
+    public MessagesToSend getTimerTime() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.SET_TIME);
+        messagesToSend.addPhrase(properties.getProperty("timer.get-time"));
+        return messagesToSend;
     }
 
-    public Messages getTimerMsg() {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.CANCEL);
-        messages.addPhrase(properties.getProperty("timer.get-msg"));
-        return messages;
+    public MessagesToSend getTimerMsg() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.CANCEL);
+        messagesToSend.addPhrase(properties.getProperty("timer.get-msg"));
+        return messagesToSend;
     }
 
-    public Messages getSuccessTimedPhrase() {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(properties.getProperty("timer.ok"));
-        messages.addPhrase(StickerCollector.thumbUp);
-        return messages;
+    public MessagesToSend getSuccessTimedPhrase() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(properties.getProperty("timer.ok"));
+        messagesToSend.addPhrase(StickerCollector.thumbUp);
+        return messagesToSend;
     }
 
-    public Messages getInfoPhrase(String user) {
-        Messages messages = new Messages();
-        messages.addPhrase(String.format(properties.getProperty("info.name"), user) + "\n");
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.glad);
-        return messages;
+    public MessagesToSend getInfoPhrase(String user) {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(String.format(properties.getProperty("info.name"), user) + "\n");
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(StickerCollector.glad);
+        return messagesToSend;
     }
 
-    public Messages choosePerson() {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.PERSONS);
-        messages.addPhrase(properties.getProperty("info.choose"));
-        return messages;
+    public MessagesToSend choosePerson() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.PERSONS);
+        messagesToSend.addPhrase(properties.getProperty("info.choose"));
+        return messagesToSend;
     }
 
-    public Messages personInfo(String name, int i) {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.NEXT);
-        messages.addPhrase(properties.getProperty("info." + name + "." + i));
-        return messages;
+    public MessagesToSend personInfo(String name, int i) {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.NEXT);
+        messagesToSend.addPhrase(properties.getProperty("info." + name + "." + i));
+        return messagesToSend;
     }
 
-    public Messages getHelp() {
-        Messages messages = new Messages();
-        messages.addPhrase(properties.getProperty("help.list"));
-        messages.setKeyboard(KeyboardMap.LIST);
-        return messages;
+    public MessagesToSend getHelp() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(properties.getProperty("help.list"));
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        return messagesToSend;
     }
 
-    public Messages notifyNo(){
-        Messages messages = new Messages();
-        messages.addPhrase(properties.getProperty("notify.no"));
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.sad);
-        return messages;
+    public MessagesToSend notifyNo(){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(properties.getProperty("notify.no"));
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(StickerCollector.sad);
+        return messagesToSend;
     }
 
-    public Messages notifyYes(){
-        Messages messages = new Messages();
-        messages.addPhrase(properties.getProperty("notify.yes"));
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.thumbUp);
-        return messages;
+    public MessagesToSend notifyYes(){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(properties.getProperty("notify.yes"));
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(StickerCollector.thumbUp);
+        return messagesToSend;
     }
 
     public String howToNotify() {
         return properties.getProperty("notify.disclaimer");
     }
 
-    public Messages getNotifyHelp(String onOrOffString) {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.YES_OR_NO);
-        messages.addPhrase(String.format(properties.getProperty("notify.help"), onOrOffString));
-        return messages;
+    public MessagesToSend getNotifyHelp(String onOrOffString) {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.YES_OR_NO);
+        messagesToSend.addPhrase(String.format(properties.getProperty("notify.help"), onOrOffString));
+        return messagesToSend;
     }
 
-    public Messages askToStartNotify() {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.YES_OR_NO);
-        messages.addPhrase(properties.getProperty("notify.ask.start"));
-        return messages;
+    public MessagesToSend askToStartNotify() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.YES_OR_NO);
+        messagesToSend.addPhrase(properties.getProperty("notify.ask.start"));
+        return messagesToSend;
     }
 
-    public Messages askToStopNotify() {
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.YES_OR_NO);
-        messages.addPhrase(properties.getProperty("notify.ask.stop"));
-        return messages;
+    public MessagesToSend askToStopNotify() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.YES_OR_NO);
+        messagesToSend.addPhrase(properties.getProperty("notify.ask.stop"));
+        return messagesToSend;
     }
 
-    public Messages notifyNoChanges() {
-        Messages messages = new Messages();
-        messages.addPhrase(properties.getProperty("notify.no-changes"));
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.pleased);
-        return messages;
+    public MessagesToSend notifyNoChanges() {
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(properties.getProperty("notify.no-changes"));
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(StickerCollector.pleased);
+        return messagesToSend;
     }
 
-    public Messages ok(){
-        Messages messages = new Messages();
-        messages.addPhrase(properties.getProperty("common.ok"));
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.thumbUp);
-        return messages;
+    public MessagesToSend ok(){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(properties.getProperty("common.ok"));
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(StickerCollector.thumbUp);
+        return messagesToSend;
     }
 
-    public Messages unavailable(){
-        Messages messages = new Messages();
-        messages.addPhrase(properties.getProperty("common.unavailable"));
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(StickerCollector.sad);
-        return messages;
+    public MessagesToSend unavailable(){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.addPhrase(properties.getProperty("common.unavailable"));
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(StickerCollector.sad);
+        return messagesToSend;
     }
 
-    public Messages toBigInteger(){
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.CANCEL);
-        messages.addPhrase(properties.getProperty("timers.out-of-bounds"));
+    public MessagesToSend toBigInteger(){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.CANCEL);
+        messagesToSend.addPhrase(properties.getProperty("timers.out-of-bounds"));
 
-        return messages;
+        return messagesToSend;
     }
 
-    public Messages noTimers(){
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.LIST);
-        messages.addPhrase(properties.getProperty("timers.list.empty"));
-        return messages;
+    public MessagesToSend noTimers(){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.LIST);
+        messagesToSend.addPhrase(properties.getProperty("timers.list.empty"));
+        return messagesToSend;
     }
 
-    public Messages timersList(List<Timer> timers){
-        Messages messages = new Messages();
-        messages.setKeyboard(KeyboardMap.CANCEL);
+    public MessagesToSend timersList(List<Timer> timers){
+        MessagesToSend messagesToSend = new MessagesToSend();
+        messagesToSend.setKeyboard(KeyboardMap.CANCEL);
         StringBuilder sb = new StringBuilder(properties.getProperty("timers.list"));
         for(int i = 1; i <= timers.size(); i++){
             sb.append(formatDate(i, timers.get(i - 1)));
         }
-        messages.addPhrase(sb.toString());
-        return messages;
+        messagesToSend.addPhrase(sb.toString());
+        return messagesToSend;
     }
 
     private String formatDate(int index, Timer t){

@@ -1,7 +1,7 @@
 package com.vkbot.strategy;
 
 
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 
 public class InfoCommand extends AbstractCommand{
 
@@ -9,15 +9,15 @@ public class InfoCommand extends AbstractCommand{
     private int iterator;
 
     @Override
-    public Messages execute(String message, String user) {
-        messages = phraseUtil.choosePerson();
+    public MessagesToSend execute(String user) {
+        messagesToSend = phraseUtil.choosePerson();
         return completeExecution();
     }
 
     @Override
-    public Messages nextPhase(String message, String user) {
+    public MessagesToSend nextPhase(String user) {
         if(person == null || !person.hasNext(iterator)){
-            choosePerson(message);
+            choosePerson(message.getBody());
             return completeExecution();
         } else {
             return getInfo(person);
@@ -38,18 +38,18 @@ public class InfoCommand extends AbstractCommand{
         } else if(message.equals(Person.OSCAR.getName())){
             getInfo(Person.OSCAR);
         } else {
-            messages = phraseUtil.choosePerson();
+            messagesToSend = phraseUtil.choosePerson();
             iterator = 0;
             person = null;
         }
     }
 
-    private Messages getInfo(Person person){
+    private MessagesToSend getInfo(Person person){
         this.person = person;
         if (person.hasNext(iterator)){
-            messages = phraseUtil.personInfo(person.name(), ++iterator);
+            messagesToSend = phraseUtil.personInfo(person.name(), ++iterator);
         } else {
-            messages = phraseUtil.choosePerson();
+            messagesToSend = phraseUtil.choosePerson();
             iterator = 0;
             this.person = null;
         }

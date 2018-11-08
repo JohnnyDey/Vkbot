@@ -7,7 +7,7 @@ import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.messages.Message;
 import com.vk.api.sdk.queries.users.UserField;
-import com.vkbot.entity.Messages;
+import com.vkbot.entity.MessagesToSend;
 import com.vkbot.utils.MessageUtils;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +29,9 @@ public class MessageHandler extends CallbackApi {
     @Inject
     private MessageBuilder builder;
 
+    @Inject
+    private MessageHolder holder;
+
     private String answerToVkServer;
 
     private static final String OK = "ok";
@@ -37,8 +40,9 @@ public class MessageHandler extends CallbackApi {
     public void messageNew(Integer groupId, Message message){
         if(MessageUtils.isTextMessage(message)){
             String username = getUsername(String.valueOf(message.getUserId()));
-            Messages messages = bot.simpleTextMessageHandle(username, message.getBody());
-            builder.message(messages).to(message.getUserId()).send();
+            holder.setMessage(message);
+            MessagesToSend messagesToSend = bot.simpleTextMessageHandle(username);
+            builder.message(messagesToSend).to(message.getUserId()).send();
         }
         answerToVkServer = OK;
     }

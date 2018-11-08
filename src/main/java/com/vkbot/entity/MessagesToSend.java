@@ -7,7 +7,7 @@ import com.vkbot.utils.KeyboardMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Messages {
+public class MessagesToSend {
 
     private List<Object> phrases = new ArrayList<>();
     private KeyboardMap keyboard = null;
