@@ -16,6 +16,7 @@ public class CommandFactory {
     public static final String MY_REMINDS = "Мои напоминалки";
     public static final String CANCEL = "Хватит";
     public static final String NEXT = "Дальше";
+    public static final String ADMIN = "/adm";
 
     @Inject
     private Instance<Command> commandInstance;
@@ -38,6 +39,8 @@ public class CommandFactory {
     }
 
     private Command getNewCommand(){
+        if(message.startsWith(ADMIN)) return commandInstance.select(AdminCommand.class).get();
+
         switch (message) {
             case REMIND:
                 return commandInstance.select(RemindCommand.class).get();
