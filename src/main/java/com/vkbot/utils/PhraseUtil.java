@@ -2,13 +2,16 @@ package com.vkbot.utils;
 
 
 import com.vkbot.entity.Messages;
+import com.vkbot.entity.TimerId;
 
+import javax.ejb.Timer;
 import javax.jms.Message;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,18 +49,14 @@ public class PhraseUtil implements Serializable {
         messages.addPhrase(StickerCollector.thumbUp);
         return messages;
     }
-//
-//    public Messages getInfoPhrase(User user) {
-//        Messages messages = new Messages();
-//        StringBuilder sb = new StringBuilder();
-//        if(user.getUserName() != null) {
-//            sb.append(String.format(properties.getProperty("info.name"), user.getUserName())).append("\n");
-//        }
-//        messages.addPhrase(sb.toString());
-//        messages.setKeyboard(KeyboardMap.LIST);
-//        messages.addPhrase(StickerCollector.glad);
-//        return messages;
-//    }
+
+    public Messages getInfoPhrase(String user) {
+        Messages messages = new Messages();
+        messages.addPhrase(String.format(properties.getProperty("info.name"), user) + "\n");
+        messages.setKeyboard(KeyboardMap.LIST);
+        messages.addPhrase(StickerCollector.glad);
+        return messages;
+    }
 
     public Messages choosePerson() {
         Messages messages = new Messages();
@@ -160,22 +159,22 @@ public class PhraseUtil implements Serializable {
         return messages;
     }
 
-//    public Messages timersList(List<Timer> timers){
-//        Messages messages = new Messages();
-//        messages.setKeyboard(KeyboardMap.CANCEL);
-//        StringBuilder sb = new StringBuilder(properties.getProperty("timers.list"));
-//        for(int i = 1; i <= timers.size(); i++){
-//            sb.append(formatDate(i, timers.get(i - 1)));
-//        }
-//        messages.addPhrase(sb.toString());
-//        return messages;
-//    }
-//
-//    private String formatDate(int index, Timer t){
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(t.getNextTimeout());
-//        return "\n" + index + ". " + calendar.get(Calendar.DAY_OF_MONTH) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.YEAR) +
-//                " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) +
-//                " Текст: " + ((TimerId) t.getInfo()).getMsg();
-//    }
+    public Messages timersList(List<Timer> timers){
+        Messages messages = new Messages();
+        messages.setKeyboard(KeyboardMap.CANCEL);
+        StringBuilder sb = new StringBuilder(properties.getProperty("timers.list"));
+        for(int i = 1; i <= timers.size(); i++){
+            sb.append(formatDate(i, timers.get(i - 1)));
+        }
+        messages.addPhrase(sb.toString());
+        return messages;
+    }
+
+    private String formatDate(int index, Timer t){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(t.getNextTimeout());
+        return "\n" + index + ". " + calendar.get(Calendar.DAY_OF_MONTH) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.YEAR) +
+                " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) +
+                " Текст: " + ((TimerId) t.getInfo()).getMsg();
+    }
 }
