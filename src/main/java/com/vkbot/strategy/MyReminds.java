@@ -16,7 +16,7 @@ public class MyReminds extends AbstractCommand {
 
     @Override
     public Messages execute(String message, String user) {
-        return refreshTimers(Long.valueOf(user));
+        return refreshTimers(40092345L);
     }
 
     private Messages refreshTimers(Long id){
@@ -35,7 +35,7 @@ public class MyReminds extends AbstractCommand {
         int index = Integer.parseInt(message) - 1;
         if(timers.size() > index && index >= 0){
             timers.get(index).cancel();
-            return refreshTimers(Long.valueOf(user)); //ID а не NAME!
+            return refreshTimers(40092345L); //ID а не NAME!
         } else {
             messages = phraseUtil.toBigInteger();
         }
