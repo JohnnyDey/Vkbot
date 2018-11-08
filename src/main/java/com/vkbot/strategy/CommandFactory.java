@@ -44,7 +44,7 @@ public class CommandFactory {
             case INFO:
                 return commandInstance.select(InfoCommand.class).get();
             case MY_REMINDS:
-                return commandInstance.select(MyReminds.class).get();
+                return commandInstance.select(MyRemindsCommand.class).get();
             default:
                 return commandInstance.select(HelpCommand.class).get();
         }

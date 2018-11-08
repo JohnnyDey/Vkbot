@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class TimerId implements Serializable {
-    private Long id;
+    private Integer id;
     private String msg;
 
-    public TimerId(Long id, String msg) {
+    public TimerId(Integer id, String msg) {
         this.id = id;
         this.msg = msg;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

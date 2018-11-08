@@ -7,7 +7,7 @@ import javax.ejb.Timer;
 import javax.inject.Inject;
 import java.util.List;
 
-public class MyReminds extends AbstractCommand {
+public class MyRemindsCommand extends AbstractCommand {
 
     private List<Timer> timers;
 
@@ -16,11 +16,11 @@ public class MyReminds extends AbstractCommand {
 
     @Override
     public MessagesToSend execute(String user) {
-        return refreshTimers(Long.valueOf(user));
+        return refreshTimers();
     }
 
-    private MessagesToSend refreshTimers(Long id){
-        timers = timersService.findTimers(id);
+    private MessagesToSend refreshTimers(){
+        timers = timersService.findTimers(message.getUserId());
         if (timers.size() == 0){
             messagesToSend = phraseUtil.noTimers();
             return finishExecution();
@@ -35,7 +35,7 @@ public class MyReminds extends AbstractCommand {
         int index = Integer.parseInt(message.getBody()) - 1;
         if(timers.size() > index && index >= 0){
             timers.get(index).cancel();
-            return refreshTimers(Long.valueOf(message.getUserId()));
+            return refreshTimers();
         } else {
             messagesToSend = phraseUtil.toBigInteger();
         }

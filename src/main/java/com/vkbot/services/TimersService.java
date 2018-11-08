@@ -28,7 +28,7 @@ public class TimersService implements Serializable {
         timerRemindEvent.fire(new TimerRemind((TimerId) timer.getInfo()));
     }
 
-    public void startTimer(Date date, Long to, String msg) {
+    public void startTimer(Date date, Integer to, String msg) {
         timerService.createSingleActionTimer(date, new TimerConfig(new TimerId(to, msg), true));
     }
 
@@ -42,7 +42,7 @@ public class TimersService implements Serializable {
         return timerService.getAllTimers().stream().filter(timer -> timer.getInfo().equals(timerId)).findFirst();
     }
 
-    public List<Timer> findTimers(Long id) {
+    public List<Timer> findTimers(Integer id) {
         return timerService.getAllTimers().stream().filter(timer -> ((TimerId)timer.getInfo()).getId().equals(id)).collect(Collectors.toList());
     }
 

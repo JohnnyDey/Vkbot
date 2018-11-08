@@ -1,23 +1,38 @@
 package com.vkbot.strategy;
 
 import com.vkbot.entity.MessagesToSend;
+import com.vkbot.services.TimersService;
 
+import javax.inject.Inject;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class RemindCommand extends AbstractCommand {
 
     private ZonedDateTime zonedDateTime;
 
+    @Inject
+    private TimersService timersService;
+
     @Override
-    public MessagesToSend execute(String user) {
-        messagesToSend = phraseUtil.unavailable();
-        return finishExecution();
+    public MessagesToSend execute(String  user) {
+        messagesToSend = phraseUtil.getTimerTime();
+        return completeExecution();
     }
 
     @Override
     public MessagesToSend nextPhase(String user) {
+        if(zonedDateTime == null){
+            zonedDateTime = parseDate(message.getBody());
+            messagesToSend = phraseUtil.getTimerMsg();
+        } else {
+            startTimer();
+            messagesToSend = phraseUtil.getSuccessTimedPhrase();
+            return finishExecution();
+        }
         return completeExecution();
     }
 
@@ -52,6 +67,10 @@ public class RemindCommand extends AbstractCommand {
             default:
                 return now;
         }
+    }
+
+    private void startTimer(){
+        timersService.startTimer(Date.from(zonedDateTime.toInstant()), message.getUserId(), message.getBody());
     }
 
 }
