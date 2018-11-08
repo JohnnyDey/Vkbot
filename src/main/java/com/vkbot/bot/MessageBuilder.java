@@ -35,7 +35,7 @@ public class MessageBuilder {
     private static final String KEYBOARD_PARAM = "keyboard";
 
     @PostConstruct
-    void init(){
+    private void init(){
         query = apiClient.messages().send(groupActor);
     }
 

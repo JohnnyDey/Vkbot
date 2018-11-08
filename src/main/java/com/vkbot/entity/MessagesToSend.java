@@ -5,12 +5,17 @@ import com.vkbot.keyboard.KeyboardMatcher;
 import com.vkbot.utils.KeyboardMap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MessagesToSend {
 
     private List<Object> phrases = new ArrayList<>();
     private KeyboardMap keyboard = null;
+
+    public MessagesToSend(String... strings) {
+        phrases.addAll(Arrays.asList(strings));
+    }
 
     public void clear(){
         phrases.clear();

@@ -2,6 +2,8 @@ package com.vkbot.bot;
 
 import com.vk.api.sdk.objects.messages.Message;
 import com.vkbot.entity.MessagesToSend;
+import com.vkbot.entity.TimerId;
+import com.vkbot.services.TimerRemind;
 import com.vkbot.strategy.AbstractCommand;
 import com.vkbot.strategy.Command;
 import com.vkbot.strategy.CommandFactory;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +30,9 @@ public class Bot {
 
     @Inject
     private Instance<Message> messageInstance;
+
+    @Inject
+    private MessageBuilder builder;
 
     MessagesToSend simpleTextMessageHandle(String username) {
         Message message = messageInstance.get();
@@ -50,5 +56,11 @@ public class Bot {
     private void setContextForCommand(String message, String user){
         commandContext.setUser(user);
         commandContext.setMessage(message);
+    }
+
+    public void timeout(@Observes TimerRemind timerRemind){
+        TimerId id = timerRemind.getId();
+        logger.info("Send msg: " + id);
+        builder.message(new MessagesToSend(id.getMsg())).to(id.getId()).send();
     }
 }
