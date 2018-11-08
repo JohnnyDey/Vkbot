@@ -34,7 +34,7 @@ public class MessagesToSend {
     }
 
     public Keyboard getKeyboard() {
-        return KeyboardMatcher.match(keyboard);
+        return keyboard != null ? KeyboardMatcher.match(keyboard) : null;
     }
 
     public void setKeyboard(KeyboardMap keyboard) {
